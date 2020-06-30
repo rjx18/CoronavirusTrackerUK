@@ -53,7 +53,7 @@ function Filter({handleSelect, utla, ltla}) {
         [authority, utla, ltla],
     )
 
-    useEffect(() => handleSelect(region), [region, handleSelect] )
+    useEffect(() => handleSelect(region, authority), [region, authority, handleSelect] )
 
     useEffect(() => { setRegion(getRegionCodes()[0]); }, [authority, getRegionCodes]);
     
@@ -81,6 +81,8 @@ function Filter({handleSelect, utla, ltla}) {
                     getOptionLabel={(option) => option.REGIONNAME}
                     id="region-select"
                     autoHighlight
+                    disableClearable={true}
+                    selectOnFocus={true}
                     value={region}
                     onChange={(event, regionSelected) => setRegion(regionSelected)}
                     renderInput={(params) => 

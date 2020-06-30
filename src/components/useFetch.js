@@ -37,6 +37,8 @@ export const useFetch = () => {
             ]);
             console.log("Retrieved data summary: " + JSON.stringify(cases.data.dailyRecords));
 
+            const parsedCases = {...cases.data, regions: cases.data.regions.concat(cases.data.countries)};
+
             const parsedUtla = utla.data.features.map((d, idx) => {
                 return {REGIONCODE: d.attributes.UTLA19CD, REGIONNAME: d.attributes.UTLA19NM};
             }).sort(sortRegions);
@@ -49,7 +51,7 @@ export const useFetch = () => {
                 data: {
                     utla: parsedUtla, 
                     ltla: parsedLtla, 
-                    cases: cases.data
+                    cases: parsedCases
                 }, isLoading: false
             });
         }

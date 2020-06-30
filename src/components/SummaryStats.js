@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     },
   });
 
-function SummaryStats() {
+function SummaryStats({total}) {
     const classes = useStyles();
 
     return (
@@ -20,7 +20,7 @@ function SummaryStats() {
                 Total
             </Typography>
             <Typography variant="h5" component="h5">
-                <b>123,231</b>
+                <b>{total}</b>
             </Typography>
         </Box>
     )
