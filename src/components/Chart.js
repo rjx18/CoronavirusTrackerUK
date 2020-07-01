@@ -142,9 +142,9 @@ function Chart({regionCases}) {
             // Process rolling average (only for daily)
             if (chartMode === 0) {
                 var rollingAverageCases = new Array(graphLabels.length).fill(null);
-                for (var i = 3; i < totalDailyCases.length - 3; i++) {
+                for (i = 3; i < totalDailyCases.length - 3; i++) {
                     var average = 0;
-                    for (var j = i - 3; j <= i + 3; j++) {
+                    for (j = i - 3; j <= i + 3; j++) {
                         average += totalDailyCases[j];
                     }
                     rollingAverageCases[i] = average / 7;

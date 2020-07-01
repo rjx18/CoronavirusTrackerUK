@@ -73,6 +73,7 @@ function Filter({handleSelect, utla, ltla}) {
                     labelId="authority-select"
                     id="authority-select"
                     value={authority}
+                    color='secondary'
                     onChange={handleAuthoritySelect}
                     variant='outlined'
                     >
@@ -113,6 +114,7 @@ function Filter({handleSelect, utla, ltla}) {
                         label="Select regions" 
                         margin="normal" 
                         variant="outlined" 
+                        color='secondary'
                         />}
                 />
             </Box>
