@@ -12,7 +12,7 @@ const INITIAL_GRAPH_DATA = {
 
 const plugins = [ChartAnnotation];
 
-function Graph({data, showAverage}) {
+function Graph({data, showAverage, showLogarithmic}) {
 
   const [graphData, setGraphData] = useState(INITIAL_GRAPH_DATA);
 //  const [height, setHeight] = useState(0);
@@ -42,7 +42,7 @@ function Graph({data, showAverage}) {
         return {...d, ...getGraphProps(d.regionCode)};
       })
     });
-  }, [data, showAverage])
+  }, [data, showAverage, showLogarithmic])
 
   return (
       <div>
@@ -57,8 +57,27 @@ function Graph({data, showAverage}) {
                 xAxes: [{
                     stacked: true
                 }],
-                yAxes: [{
-                    stacked: true
+                yAxes: showLogarithmic ? 
+                [{
+                  stacked: true,
+                  type: 'logarithmic',
+                  ticks: {
+                      callback: (value, index, values) => {
+                          if (value >= 100000 && value < 1000000 && value % 100000 === 0) return value / 100000 + "00K";
+                          if (value >= 10000 && value < 100000 && value % 10000 === 0) return value / 10000 + "0K";
+                          if (value >= 1000 && value < 10000 && value % 1000 === 0) return value / 1000 + "K";
+                          if (value >= 100 && value < 1000 && value % 100 === 0) return value / 100;
+                          if (value >= 10 && value < 100 && value % 10 === 0) return value / 10;
+                          if (value >= 0 && value < 10) return value;
+                          return null;
+                      }
+                  }
+                }]
+                : 
+                [{
+                    stacked: true,
+                    type: 'linear',
+                    ticks: {}
                 }]
             },
             legend: {

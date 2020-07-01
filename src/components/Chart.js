@@ -45,6 +45,7 @@ function Chart({regionCases}) {
     const [graphData, setGraphData] = useState(null);
     const [chartMode, setChartMode] = useState(0);
     const [showAverage, setShowAverage] = useState(true);
+    const [showLogarithmic, setShowLogarithmic] = useState(false);
 
     /* Date processing code */
 
@@ -109,14 +110,27 @@ function Chart({regionCases}) {
             // Process case data for each region
             for (const regionCase of regionCases) {
                 var caseData = new Array(graphLabels.length).fill(0);
-                for (const c of regionCase.cases) {
+                var previousIndex = 0;
+                for (var i = regionCase.cases.length - 1; i >= 0; i--) {
+                    const c = regionCase.cases[i];
                     if (c.specimenDate === getLastUpdateDate()) {
                         totalCases += c.totalLabConfirmedCases;
                     }
                     const index = graphLabels.findIndex((e) => e === c.specimenDate);
                     const currentCases = chartMode === 0 ? c.dailyLabConfirmedCases : c.totalLabConfirmedCases;
                     caseData[index] = currentCases;
-                    totalDailyCases[index] += currentCases;
+
+                    if (chartMode === 1 && index !== previousIndex + 1) {
+                        for (var j = previousIndex + 1; j < index; j++) {
+                            caseData[j] = caseData[previousIndex];
+                            //totalDailyCases[j] += caseData[j];
+                        }
+                    }
+                    previousIndex = index;
+
+                    if (chartMode === 0) {
+                        totalDailyCases[index] += currentCases;
+                    }
                 }
                 graphDatasets.push({
                     label: regionCase.region.REGIONNAME,
@@ -125,43 +139,35 @@ function Chart({regionCases}) {
                   });
             }
 
-            var rollingAverageCases = new Array(graphLabels.length).fill(null);
-
-            // Process rolling average
-            for (var i = 3; i < totalDailyCases.length - 3; i++) {
-                var average = 0;
-                for (var j = i - 3; j <= i + 3; j++) {
-                    average += totalDailyCases[j];
+            // Process rolling average (only for daily)
+            if (chartMode === 0) {
+                var rollingAverageCases = new Array(graphLabels.length).fill(null);
+                for (var i = 3; i < totalDailyCases.length - 3; i++) {
+                    var average = 0;
+                    for (var j = i - 3; j <= i + 3; j++) {
+                        average += totalDailyCases[j];
+                    }
+                    rollingAverageCases[i] = average / 7;
                 }
-                rollingAverageCases[i] = average / 7;
-            }
 
-            graphDatasets.push({
-                label: 'Rolling average',
-                isAverage: true,
-                data: rollingAverageCases,
-                borderColor: 'rgba(100,100,100,1)',
-                borderWidth: 1,
-                pointRadius: 2,
-                pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                type: 'line'
-            })
+                graphDatasets.push({
+                    label: 'Rolling average',
+                    isAverage: true,
+                    data: rollingAverageCases,
+                    borderColor: 'rgba(100,100,100,1)',
+                    borderWidth: 1,
+                    pointRadius: 2,
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    type: 'line'
+                })
+            }
 
             setGraphData({
                 labels: graphLabels,
                 datasets: graphDatasets
             })
 
-            // regions.forEach((item, index) => {
-            //     console.log(item, index);
-            // });
-
-            // for (var i = 0; i < cases.length; i++) {
-            //     if (cases[i].specimenDate === getLastUpdateDate()) {
-            //         totalCases += cases[i].totalLabConfirmedCases;
-            //     }
-            // }
             setTotal(totalCases);
         },
         [regionCases, chartMode, getLastUpdateDate, getFirstUpdateDate, generateDateLabels],
@@ -208,6 +214,7 @@ function Chart({regionCases}) {
                                 <Tab label="Cumulative" value={1} />
                             </Tabs>
                         </Box>
+                        {chartMode === 0 ? 
                         <Box>
                             <FormControlLabel
                                 classes={{label: classes.label}}
@@ -215,9 +222,19 @@ function Chart({regionCases}) {
                                 label="Show 7-day rolling average"
                                 labelPlacement="start"
                             />
+                        </Box> : 
+                        <Box>
+                        <FormControlLabel
+                            classes={{label: classes.label}}
+                            control={<Switch checked={showLogarithmic} onChange={(event, newValue) => setShowLogarithmic(newValue)} name="logarithmic" />}
+                            label="Show logarithmic axes"
+                            labelPlacement="start"
+                        />
                         </Box>
+                        }
+
                     </Box>
-                    <Graph data={graphData} showAverage={showAverage} />
+                    <Graph data={graphData} showAverage={showAverage} showLogarithmic={chartMode !== 0 && showLogarithmic} />
                 </Box>
             }
         </CardContent>
