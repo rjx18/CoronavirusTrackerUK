@@ -28,7 +28,7 @@ export default function Navbar() {
             <Typography variant="h6" className={classes.title}>
                 Coronavirus Tracker UK
             </Typography>
-            <Button color="inherit">Buy me a pint!</Button>
+            <Button color="inherit" href="https://paypal.me/richhardry?locale.x=en_GB" target="_blank">Support my work</Button>
             </Toolbar>
         </AppBar>
     </div>

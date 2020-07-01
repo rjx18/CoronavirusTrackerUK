@@ -9,7 +9,22 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
     backgroundColor: '#fafafa',
-    paddingBottom: '10%'
+    position: "relative"
+  },
+  content: {
+    paddingBottom: 100,
+  },
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+  },
+  footerContent: {
+    margin: "20px 30px"
+  },
+  footerText: {
+    color: "#bfbfbf",
+    fontSize: 12
   }
 }));
 
@@ -19,7 +34,8 @@ function App() {
   return (
     <div className={classes.root}>
       <Navbar />
-      <Box className="content-card">
+      <Box 
+        className="content-card" >
         <Box 
         display="flex" 
         flexDirection="row-reverse" 
@@ -31,8 +47,15 @@ function App() {
             <b>Coronavirus cases by region</b>
           </Typography>
         </Box>
-        <Box>
+        <Box className={classes.content}>
           <DataControl />
+        </Box>
+      </Box>
+      <Box className={classes.footer}>
+        <Box className={classes.footerContent} display="flex">
+          <Typography className={classes.footerText} variant="body2" gutterBottom>
+            <b>für Lucy</b>, ich vermisse dich und leibe dich
+          </Typography>
         </Box>
       </Box>
     </div>

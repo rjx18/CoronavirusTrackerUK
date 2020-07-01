@@ -1,11 +1,20 @@
 import React from 'react';
 import useFetch from './useFetch';
+import { makeStyles } from '@material-ui/core/styles';
 import { useState, useCallback, useEffect } from 'react';
 import { Box, CircularProgress } from '@material-ui/core';
 import Filter from './Filter';
 import Chart from './Chart';
 
+const useStyles = makeStyles((theme) => ({
+    filterBox: {
+        marginBottom: 10,
+    }
+  }));
+
 function DataControl() {
+    const classes = useStyles();
+
     const {data, isLoading} = useFetch();
 
     const [selectedAuthority, setSelectedAuthority] =  useState(0);
@@ -81,7 +90,10 @@ function DataControl() {
             </Box> 
             : 
             <Box>
-                <Filter handleSelect={handleSelect} utla={data.utla} ltla={data.ltla}/>
+                <Box className={classes.filterBox}> 
+                    <Filter handleSelect={handleSelect} utla={data.utla} ltla={data.ltla}/>
+                </Box>
+
                 <Chart regionCases={selectedCases} />
             </Box>
     )
