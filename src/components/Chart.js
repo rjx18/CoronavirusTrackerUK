@@ -135,7 +135,7 @@ function Chart({regionCases}) {
             }
 
             graphDatasets.push({
-                label: '7-day rolling average',
+                label: 'Rolling average',
                 isAverage: true,
                 data: rollingAverageCases,
                 borderColor: 'rgba(100,100,100,1)',
