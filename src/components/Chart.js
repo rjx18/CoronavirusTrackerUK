@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
        
     },
     emptyTitle: {
+        ...theme.typography.button,
        textAlign: 'center',
+       fontSize: 18,
        marginTop: 20
     },
     label: {
