@@ -7,9 +7,10 @@ import DataControl from './components/DataControl';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    minHeight: '100vh',
     backgroundColor: '#fafafa',
-  },
+    paddingBottom: '10%'
+  }
 }));
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
   return (
     <div className={classes.root}>
       <Navbar />
-      <Box px="15%">
+      <Box className="content-card">
         <Box 
         display="flex" 
         flexDirection="row-reverse" 
@@ -30,7 +31,9 @@ function App() {
             <b>Coronavirus cases by region</b>
           </Typography>
         </Box>
-        <DataControl />
+        <Box>
+          <DataControl />
+        </Box>
       </Box>
     </div>
   );

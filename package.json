@@ -13,10 +13,13 @@
     "axios": "^0.19.2",
     "bootstrap-css-only": "^4.4.1",
     "chart.js": "^2.9.3",
+    "chartjs-plugin-annotation": "chartjs/chartjs-plugin-annotation#master",
     "fontsource-roboto": "^2.1.4",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "seedrandom": "^3.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

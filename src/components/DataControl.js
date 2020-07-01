@@ -10,7 +10,7 @@ function DataControl() {
 
     const [selectedAuthority, setSelectedAuthority] =  useState(0);
 
-    const [selectedRegion, setSelectedRegion] =  useState(null);
+    const [selectedRegions, setSelectedRegions] =  useState([]);
 
     const [selectedCases, setSelectedCases] = useState([]);
 
@@ -18,38 +18,61 @@ function DataControl() {
         console.log("Selected authority: " + authority);
         console.log("Selected region: " + JSON.stringify(region));
         setSelectedAuthority(authority);
-        setSelectedRegion(region);
+        setSelectedRegions(region);
     }, []);
 
-    const filterRegion = useCallback((region, authority) => {
+    const filterRegion = useCallback((regions, authority) => {
         if (!data) {
             return [];
         }
-        var cases;
+
+        var cases = [];
+
         switch (authority) {
             case 1:
-                cases = data.cases.regions;
+                cases = data.cases.countries;
                 break;
             case 2:
-                cases = data.cases.utlas;
+                cases = data.cases.regions;
                 break;
             case 3:
+                cases = data.cases.utlas;
+                break;
+            case 4:
                 cases = data.cases.ltlas;
                 break;
             default:
                 return [];
         }
 
-        return cases.filter((c) => {
-            return c.areaCode === region.REGIONCODE;
-        });
+        var filteredList = regions.map((d, idx) => {
+            return {region: d, cases: []};
+        })
+
+        for (const c of cases) {
+            var region = filteredList.find((e) => e.region.REGIONCODE === c.areaCode);
+            if (region) {
+                region.cases.push(c);
+            }
+        }
+
+        return filteredList;
+
+        // const regionCodeList = regions.map((d, idx) => {
+        //     return d.REGIONCODE;
+        // })
+
+        // return cases.filter((c) => {
+        //     return regionCodeList.includes(c.areaCode);
+        // });
     }, [data])
 
     useEffect(() => {
-        if (selectedRegion && selectedAuthority) {
-            setSelectedCases(filterRegion(selectedRegion, selectedAuthority));
+        if (selectedAuthority) {
+            setSelectedCases(filterRegion(selectedRegions, selectedAuthority));
         }
-    }, [selectedRegion, selectedAuthority, filterRegion])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedRegions, filterRegion])
 
     return (
         isLoading ? 
@@ -59,7 +82,7 @@ function DataControl() {
             : 
             <Box>
                 <Filter handleSelect={handleSelect} utla={data.utla} ltla={data.ltla}/>
-                <Chart cases={selectedCases} />
+                <Chart regionCases={selectedCases} />
             </Box>
     )
 }
