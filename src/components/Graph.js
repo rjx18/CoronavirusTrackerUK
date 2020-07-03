@@ -2,7 +2,8 @@ import React from 'react';
 import {Bar} from 'react-chartjs-2';
 import { useEffect, useState} from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import * as ChartAnnotation from 'chartjs-plugin-annotation'
+import * as ChartAnnotation from 'chartjs-plugin-annotation';
+import seedrandom from 'seedrandom';
 
 const INITIAL_GRAPH_DATA = {
   labels: [],
@@ -17,10 +18,12 @@ function Graph({data, showAverage, showLogarithmic}) {
 
   const smMedia = useMediaQuery('(max-width:1000px)');
 
-  const getGraphProps = (id) => {
-    const slot = id % 10;
-    const variance = ((id / 10) * 5) % 36;
-    const hue = Math.round(slot * 36 + variance);
+  const getGraphProps = (seed) => {
+    var rng = seedrandom(seed);
+    const hue = Math.round(rng() * 359);
+    // const slot = id % 10;
+    // const variance = ((id / 10) * 5) % 36;
+    // const hue = Math.round(slot * 36 + variance);
 
     return {
       backgroundColor: `hsla( ${hue}, 70%, 60%, 0.6)`,
@@ -38,7 +41,7 @@ function Graph({data, showAverage, showLogarithmic}) {
         if (d.isAverage) {
           return {...d, hidden: !showAverage};
         }
-        return {...d, ...getGraphProps(idx)};
+        return {...d, ...getGraphProps(d.regionCode)};
       })
     });
   }, [data, showAverage, showLogarithmic])
