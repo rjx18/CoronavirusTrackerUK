@@ -31,7 +31,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function Filter({handleSelect, utla, ltla}) {
     const classes = useStyles();
-    const [authority, setAuthority] = React.useState(2);
+    const [authority, setAuthority] = React.useState(1);
     const [region, setRegion] = React.useState([]);
 
     const handleAuthoritySelect = (event) => {
@@ -123,7 +123,19 @@ function Filter({handleSelect, utla, ltla}) {
 const UK_COUNTRIES = [
     {
         REGIONCODE: "E92000001",
-        REGIONNAME: "England"
+        REGIONNAME: "England",
+    }, 
+    {
+        REGIONCODE: "N92000002",
+        REGIONNAME: "Northern Ireland",
+    }, 
+    {
+        REGIONCODE: "S92000003",
+        REGIONNAME: "Scotland",
+    }, 
+    {
+        REGIONCODE: "W92000004",
+        REGIONNAME: "Wales",
     }, 
 ]
 

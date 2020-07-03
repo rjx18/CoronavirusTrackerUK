@@ -147,7 +147,7 @@ function Chart({regionCases}) {
                     for (j = i - 3; j <= i + 3; j++) {
                         average += totalDailyCases[j];
                     }
-                    rollingAverageCases[i] = average / 7;
+                    rollingAverageCases[i] = (average / 7).toFixed(2);
                 }
 
                 graphDatasets.push({
