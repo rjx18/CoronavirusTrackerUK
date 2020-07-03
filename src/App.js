@@ -54,7 +54,7 @@ function App() {
       <Box className={classes.footer}>
         <Box className={classes.footerContent} display="flex">
           <Typography className={classes.footerText} variant="body2" gutterBottom>
-            <b>für Lucy</b>, ich vermisse dich und leibe dich
+            <b>für Lucy</b>, ich vermisse dich und liebe dich
           </Typography>
         </Box>
       </Box>
