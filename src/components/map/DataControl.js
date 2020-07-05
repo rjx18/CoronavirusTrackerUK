@@ -3,6 +3,7 @@ import useFetch from './useFetch';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useCallback, useEffect } from 'react';
 import { Box, CircularProgress } from '@material-ui/core';
+import CaseMap from './CaseMap';
 
 function DataControl() {
     const {data, isLoading} = useFetch();
@@ -14,6 +15,7 @@ function DataControl() {
             </Box> 
             : 
             <Box>
+                <CaseMap />
                 {/* <Box className={classes.filterBox}> 
                     <Filter handleSelect={handleSelect} utla={data.utla} ltla={data.ltla}/>
                 </Box>

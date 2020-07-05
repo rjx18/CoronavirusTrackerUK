@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DataControl from './DataControl';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -29,7 +30,7 @@ function MapPage() {
                 </Typography>
             </Box>
             <Box>
-            {/* Content */}
+                <DataControl />
             </Box>
         </Box>
   );
