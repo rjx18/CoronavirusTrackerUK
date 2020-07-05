@@ -1,18 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Box, Typography } from '@material-ui/core';
 import Navbar from './components/Navbar';
-import DataControl from './components/DataControl';
+import ChartPage from './components/cases';
+import MapPage from './components/map';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
     backgroundColor: '#fafafa',
     position: "relative"
-  },
-  content: {
-    paddingBottom: 100,
   },
   footer: {
     position: "absolute",
@@ -33,24 +32,17 @@ function App() {
   
   return (
     <div className={classes.root}>
+
+    <Router>
       <Navbar />
-      <Box 
-        className="content-card" >
-        <Box 
-        display="flex" 
-        flexDirection="row-reverse" 
-        justifyContent="center" 
-        alignItems="center" 
-        m={1} p={1}
-        css={{ height: 150 }}>
-          <Typography variant="h4" gutterBottom>
-            <b>Coronavirus cases by region</b>
-          </Typography>
-        </Box>
-        <Box className={classes.content}>
-          <DataControl />
-        </Box>
+      <Box py={10}>
+        <Route exact path="/cases" component={ChartPage} />
+        <Route exact path="/map" component={MapPage} />
       </Box>
+      <Redirect exact from="/" to="/map" />
+      </Router>
+
+      {/* Footer */}
       <Box className={classes.footer}>
         <Box className={classes.footerContent} display="flex">
           <Typography className={classes.footerText} variant="body2" gutterBottom>
