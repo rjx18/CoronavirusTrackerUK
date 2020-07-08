@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import  * as DateUtils from '../../DateUtils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,29 +71,15 @@ function Chart({regionCases}) {
         [regionCases],
     )
 
-    const incrementDate = (d) => {
-        d.setDate(d.getDate() + 1);
-    }
-
-    const dateToString = (d) => {
-        return new Date(d.getTime() - (d.getTimezoneOffset() * 60000 ))
-                .toISOString()
-                .split("T")[0];
-    }
-
-    const stringToDate = (str) => {
-        return new Date(str);
-    }
-
     /* Data Processing Code */
 
     const generateDateLabels = useCallback((firstStr, lastStr) => {
-        var lastDate = stringToDate(lastStr);
-        var firstDate = stringToDate(firstStr);
+        var lastDate = DateUtils.stringToDate(lastStr);
+        var firstDate = DateUtils.stringToDate(firstStr);
         var dateLabels = [];
         while (firstDate <= lastDate) {
-            dateLabels.push(dateToString(firstDate));
-            incrementDate(firstDate);
+            dateLabels.push(DateUtils.dateToString(firstDate));
+            DateUtils.incrementDate(firstDate);
         }
         return dateLabels;
     }, []);
@@ -198,24 +185,24 @@ function Chart({regionCases}) {
                 </Typography> :
                 <Box>
                     <Box display="flex" flexDirection="row">
-                        <Box width="50%" alignSelf="flex-end">
+                        <Box width="50%" alignSelf="flex-end" ml={smMedia ? 2 : 0}>
                             <Typography className={classes.title} variant="h4" component="h4">
                                 <b>Cases</b>
                             </Typography>
                         </Box>
-                        <Box width="50%">
+                        <Box width="50%" mr={smMedia ? 2 : 0}>
                             <SummaryStats total={total}/>
                         </Box>
                     </Box>
-                    <Box display={{xs: 'block', md: "flex"}}>
-                        <Box flexGrow={1}>
+                    <Box display={{xs: 'block', md: "flex"}} alignItems="center">
+                        <Box flexGrow={1} mb={2} ml={smMedia ? 2 : 0}>
                             <Tabs value={chartMode} onChange={(event, newValue) => setChartMode(newValue)}>
                                 <Tab label="Daily" value={0} />
                                 <Tab label="Cumulative" value={1} />
                             </Tabs>
                         </Box>
                         {chartMode === 0 ? 
-                        <Box>
+                        <Box mb={2}  mr={smMedia ? 2 : 0}>
                             <FormControlLabel
                                 classes={{label: classes.label}}
                                 control={<Switch checked={showAverage} onChange={(event, newValue) => setShowAverage(newValue)} name="average" />}
@@ -223,7 +210,7 @@ function Chart({regionCases}) {
                                 labelPlacement="start"
                             />
                         </Box> : 
-                        <Box>
+                        <Box mb={2} mr={smMedia ? 2 : 0}>
                         <FormControlLabel
                             classes={{label: classes.label}}
                             control={<Switch checked={showLogarithmic} onChange={(event, newValue) => setShowLogarithmic(newValue)} name="logarithmic" />}

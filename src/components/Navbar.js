@@ -122,7 +122,9 @@ export default function Navbar() {
                 component={NavLink} exact to={'/map'}
                 activeClassName={classes.activeButton}>Map</Button>
             </Box>
-            <Button color="inherit" href="https://paypal.me/richhardry?locale.x=en_GB" target="_blank" className={classes.button}>Support my work</Button>
+            <Button color="inherit" href="https://paypal.me/richhardry?locale.x=en_GB" target="_blank" className={classes.button}>
+              {smMedia ? "Support me" : "Support my work"}
+            </Button>
             </Toolbar>
         </AppBar>
       </HideOnScroll>
