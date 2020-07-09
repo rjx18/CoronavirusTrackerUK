@@ -39,7 +39,7 @@ function App() {
         <Route exact path="/cases" component={ChartPage} />
         <Route exact path="/map" component={MapPage} />
       </Box>
-      <Redirect exact from="/" to="/map" />
+      <Redirect exact from="/" to="/cases" />
       </Router>
 
       {/* Footer */}

@@ -162,7 +162,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                         setPlaying(false);
                     }
                     setDateIndex(dateIndex => dateIndex + 1);
-            }, 150 / speedOptions[selectedSpeedIndex].speed);
+            }, 200 / speedOptions[selectedSpeedIndex].speed);
 
             return () => {
                 clearInterval(interval);
@@ -208,7 +208,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                             <Box flexGrow={1} mb={2} ml={smMedia ? 2 : 0} >
                                 <Tabs value={mapMode} onChange={(event, newValue) => handleMapModeChange(newValue)}>
                                     <Tab label="Daily" value={1} />
-                                    <Tab label="Cumulative" value={0} />
+                                    {/* <Tab label="Cumulative" value={0} /> */}
                                 </Tabs>
                             </Box>
                             {/* {chartMode === 0 ?  */}
@@ -271,7 +271,8 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                         geojson={mapGeoJson} 
                         casesForDate={mapCases.find((e) => {return e.date.getTime() === currentDate.getTime()})} 
                         perMillion={perMillion}
-                        caseIncrease={caseIncrease}/>
+                        caseIncrease={caseIncrease}
+                        mapMode={mapMode}/>
                 </Box>
             </CardContent>
         </Card>

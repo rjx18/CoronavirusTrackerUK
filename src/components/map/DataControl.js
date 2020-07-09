@@ -88,7 +88,8 @@ function DataControl() {
                                 areaName: currCase.areaName,
                                 areaCode: currCase.areaCode,
                                 casesPastWeek: currCase.dailyLabConfirmedCases,
-                            })
+                                cumulativeCases: currCase.totalLabConfirmedCases
+                            });
                         }
                     }
                 }
@@ -100,8 +101,8 @@ function DataControl() {
                     const currCase = mapCaseData[day].cases[j];
                     const currCaseAreaCode = currCase.areaCode;
                     var caseIncrease = 0;
-                    if (day !== 0) {
-                        const casesYesterday = mapCaseData[day - 1].cases.find((e) => e.areaCode === currCaseAreaCode);
+                    if (day >= 7) {
+                        const casesYesterday = mapCaseData[day - 7].cases.find((e) => e.areaCode === currCaseAreaCode);
                         if (casesYesterday) {
                             caseIncrease = currCase.casesPastWeek - casesYesterday.casesPastWeek;
                         }
@@ -137,6 +138,7 @@ function DataControl() {
                 casesPastWeek: ...,
                 casesPerMillion: ...,
                 caseIncreasePerMillion: ...
+                cumulativeCases: ...
             }
         ]
     }]
