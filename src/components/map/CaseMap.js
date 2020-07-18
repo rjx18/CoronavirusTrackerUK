@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, } from 'react';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -131,7 +131,7 @@ const speedOptions = [
     },
   ];
 
-function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate}) {
+function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate, history}) {
     const smMedia = useMediaQuery('(max-width:700px)');
 
     const classes = useStyles();
@@ -277,7 +277,8 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                         casesForDate={mapCases.find((e) => {return e.date.getTime() === currentDate.getTime()})} 
                         perMillion={perMillion}
                         caseIncrease={caseIncrease}
-                        mapMode={mapMode}/>
+                        mapMode={mapMode}
+                        history={history}/>
                 </Box>
             </CardContent>
         </Card>

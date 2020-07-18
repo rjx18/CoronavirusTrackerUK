@@ -6,7 +6,7 @@ import CaseMap from './CaseMap';
 import { populationData } from './Population';
 import  * as DateUtils from '../../DateUtils';
 
-function DataControl() {
+function DataControl(props) {
     const {data, isFetching} = useFetch();
     const [mapMode, setMapMode] = useState(1) // 0 = Cumulative, 1 = Daily
     const [mapCases, setMapCases] = useState([]);
@@ -153,7 +153,8 @@ function DataControl() {
                     mapGeoJson={data.ltlaMap} 
                     mapMode={mapMode} 
                     handleMapModeChange={setMapMode} 
-                    latestDate={DateUtils.stringToDate(getLastUpdateDate())}/>
+                    latestDate={DateUtils.stringToDate(getLastUpdateDate())}
+                    history={props.history}/>
                 {/* <Box className={classes.filterBox}> 
                     <Filter handleSelect={handleSelect} utla={data.utla} ltla={data.ltla}/>
                 </Box>

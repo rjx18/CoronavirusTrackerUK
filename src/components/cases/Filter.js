@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -29,42 +29,37 @@ const useStyles = makeStyles((theme) => ({
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-function Filter({handleSelect, utla, ltla}) {
+function Filter({handleSelect, utlas, ltlas, countries, regions, selectedRegions, selectedAuthority}) {
     const classes = useStyles();
-    const [authority, setAuthority] = React.useState(1);
-    const [region, setRegion] = React.useState([]);
 
     const handleAuthoritySelect = (event) => {
-        setAuthority(event.target.value);
+        handleSelect(event.target.value, []);
     };
-    
-    // const handleRegionSelect = (regionSelected) => {
-    //     setRegion(regionSelected);
-    //     handleSelect(regionSelected);
-    // };
+
+    const handleRegionSelect = (regionSelected) => {
+        handleSelect(selectedAuthority, regionSelected);
+    };
 
     const getRegionCodes = useCallback(
         () => {
-            switch(authority) {
-                case 1:
-                    return UK_COUNTRIES;
-                case 2:
-                    return UK_REGIONS;
-                case 3:
-                    return utla;
-                case 4:
-                    return ltla;
+            switch(selectedAuthority) {
+                case "countries":
+                    return countries;
+                case "regions":
+                    return regions;
+                case "utlas":
+                    return utlas;
+                case "ltlas":
+                    return ltlas;
                 default:
                     return null;
             }
         },
-        [authority, utla, ltla],
+        [selectedAuthority, utlas, ltlas, countries, regions],
     )
 
-    useEffect(() => handleSelect(region, authority), [region, authority, handleSelect] )
+    // useEffect(() => { setRegion([]); }, [authority, getRegionCodes]);
 
-    useEffect(() => { setRegion([]); }, [authority, getRegionCodes]);
-    
     return (
         <Box display="flex">
             <Box>
@@ -72,14 +67,14 @@ function Filter({handleSelect, utla, ltla}) {
                     <Select
                     labelId="authority-select"
                     id="authority-select"
-                    value={authority}
+                    value={selectedAuthority}
                     onChange={handleAuthoritySelect}
                     variant='outlined'
                     >
-                        <MenuItem value={1}>By Country</MenuItem>
-                        <MenuItem value={2}>By Region</MenuItem>
-                        <MenuItem value={3}>By UTLA</MenuItem>
-                        <MenuItem value={4}>By LTLA</MenuItem>
+                        <MenuItem value={"countries"}>By Country</MenuItem>
+                        <MenuItem value={"regions"}>By Region</MenuItem>
+                        <MenuItem value={"utlas"}>By UTLA</MenuItem>
+                        <MenuItem value={"ltlas"}>By LTLA</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
@@ -94,8 +89,8 @@ function Filter({handleSelect, utla, ltla}) {
                     disableCloseOnSelect
                     openOnFocus
                     limitTags={1}
-                    value={region}
-                    onChange={(event, regionSelected) => setRegion(regionSelected)}
+                    value={selectedRegions}
+                    onChange={(event, regionSelected) => handleRegionSelect(regionSelected)}
                     renderOption={(option, { selected }) => (
                         <React.Fragment>
                           <Checkbox
@@ -119,63 +114,5 @@ function Filter({handleSelect, utla, ltla}) {
         </Box>
     )
 }
-
-const UK_COUNTRIES = [
-    {
-        REGIONCODE: "E92000001",
-        REGIONNAME: "England",
-    }, 
-    {
-        REGIONCODE: "N92000002",
-        REGIONNAME: "Northern Ireland",
-    }, 
-    {
-        REGIONCODE: "S92000003",
-        REGIONNAME: "Scotland",
-    }, 
-    {
-        REGIONCODE: "W92000004",
-        REGIONNAME: "Wales",
-    }, 
-]
-
-const UK_REGIONS = [
-    {
-        REGIONCODE: "E12000009",
-        REGIONNAME: "South West"
-    }, 
-    {
-        REGIONCODE: "E12000008",
-        REGIONNAME: "South East"
-    }, 
-    {
-        REGIONCODE: "E12000007",
-        REGIONNAME: "London"
-    }, 
-    {
-        REGIONCODE: "E12000006",
-        REGIONNAME: "East of England"
-    }, 
-    {
-        REGIONCODE: "E12000005",
-        REGIONNAME: "West Midlands"
-    }, 
-    {
-        REGIONCODE: "E12000004",
-        REGIONNAME: "East Midlands"
-    }, 
-    {
-        REGIONCODE: "E12000003",
-        REGIONNAME: "Yorkshire and The Humber"
-    }, 
-    {
-        REGIONCODE: "E12000002",
-        REGIONNAME: "North West"
-    }, 
-    {
-        REGIONCODE: "E12000001",
-        REGIONNAME: "North East"
-    }, 
-]
 
 export default Filter

@@ -34,13 +34,15 @@ function App() {
     <div className={classes.root}>
 
     <Router>
+      <Route exact path="/">
+          <Redirect to="/cases" />
+      </Route>
       <Navbar />
       <Box py={10}>
         <Route exact path="/cases" component={ChartPage} />
         <Route exact path="/map" component={MapPage} />
       </Box>
-      <Redirect exact from="/" to="/cases" />
-      </Router>
+    </Router>
 
       {/* Footer */}
       <Box className={classes.footer}>

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
   
-function MapPage() {
+function MapPage(props) {
     const classes = useStyles();
 
     return (
@@ -30,7 +30,7 @@ function MapPage() {
                 </Typography>
             </Box>
             <Box>
-                <DataControl />
+                <DataControl {...props}/>
             </Box>
         </Box>
   );

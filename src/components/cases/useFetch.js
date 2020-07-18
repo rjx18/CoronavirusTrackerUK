@@ -62,8 +62,10 @@ export const useFetch = () => {
 
             setState({
                 data: {
-                    utla: parsedUtla, 
-                    ltla: parsedLtla, 
+                    countries: UK_COUNTRIES,
+                    regions: UK_REGIONS,
+                    utlas: parsedUtla, 
+                    ltlas: parsedLtla, 
                     cases: cases
                 }, isLoading: false
             });
@@ -74,5 +76,63 @@ export const useFetch = () => {
 
     return state;
 }
+
+const UK_COUNTRIES = [
+    {
+        REGIONCODE: "E92000001",
+        REGIONNAME: "England",
+    }, 
+    {
+        REGIONCODE: "N92000002",
+        REGIONNAME: "Northern Ireland",
+    }, 
+    {
+        REGIONCODE: "S92000003",
+        REGIONNAME: "Scotland",
+    }, 
+    {
+        REGIONCODE: "W92000004",
+        REGIONNAME: "Wales",
+    }, 
+]
+
+const UK_REGIONS = [
+    {
+        REGIONCODE: "E12000009",
+        REGIONNAME: "South West"
+    }, 
+    {
+        REGIONCODE: "E12000008",
+        REGIONNAME: "South East"
+    }, 
+    {
+        REGIONCODE: "E12000007",
+        REGIONNAME: "London"
+    }, 
+    {
+        REGIONCODE: "E12000006",
+        REGIONNAME: "East of England"
+    }, 
+    {
+        REGIONCODE: "E12000005",
+        REGIONNAME: "West Midlands"
+    }, 
+    {
+        REGIONCODE: "E12000004",
+        REGIONNAME: "East Midlands"
+    }, 
+    {
+        REGIONCODE: "E12000003",
+        REGIONNAME: "Yorkshire and The Humber"
+    }, 
+    {
+        REGIONCODE: "E12000002",
+        REGIONNAME: "North West"
+    }, 
+    {
+        REGIONCODE: "E12000001",
+        REGIONNAME: "North East"
+    }, 
+]
 
 export default useFetch;

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ChartPage() {
+function ChartPage(props) {
 
   const classes = useStyles();
   
@@ -31,7 +31,7 @@ function ChartPage() {
           </Typography>
         </Box>
         <Box>
-          <DataControl />
+          <DataControl {...props} />
         </Box>
       </Box>
   );

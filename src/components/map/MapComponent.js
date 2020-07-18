@@ -1,12 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Map, GeoJSON, TileLayer } from "react-leaflet";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as DateUtils from '../../DateUtils';
 import L from 'leaflet';
 import ReactDOMServer from 'react-dom/server';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import './MapComponent.css'
 
@@ -29,7 +28,7 @@ function clamp(num, min, max) {
     return Math.min(Math.max(num, min), max);
   };
 
-function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode}) {
+function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode, history}) {
     const classes = useStyles();
     const smMedia = useMediaQuery('(max-width:700px)');
 
@@ -205,7 +204,7 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode}
                 popup.setLatLng(e.latlng).openOn(mapRef.current.leafletElement);
             }),
             click: ((e) => {
-                
+                history.push(`/cases?type=ltlas&regions=${feature.properties.areaCode}`);
             })
         });
     }
