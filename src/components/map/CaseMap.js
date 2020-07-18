@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
         padding: 5,
         minHeight: 0,
         minWidth: 50,
+    },
+    speedSelectItem: {
+        ...theme.typography.button
     }
   }));
 
@@ -208,7 +211,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                             <Box flexGrow={1} mb={2} ml={smMedia ? 2 : 0} >
                                 <Tabs value={mapMode} onChange={(event, newValue) => handleMapModeChange(newValue)}>
                                     <Tab label="Daily" value={1} />
-                                    {/* <Tab label="Cumulative" value={0} /> */}
+                                    <Tab label="Cumulative" value={0} />
                                 </Tabs>
                             </Box>
                             {/* {chartMode === 0 ?  */}
@@ -223,6 +226,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                                     classes={{label: classes.label}}
                                     control={<Switch checked={caseIncrease} name="case-increase" onChange={(event, newValue) => setCaseIncrease(newValue)}/>}
                                     label="Show case increase/decrease"
+                                    disabled={mapMode === 0}
                                     labelPlacement="start"
                                 />
                             </Box>
@@ -258,6 +262,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                                             key={option.label}
                                             selected={index === selectedSpeedIndex}
                                             onClick={(event) => handleMenuItemClick(event, index)}
+                                            className={classes.speedSelectItem}
                                         >
                                             {option.label}
                                         </MenuItem>

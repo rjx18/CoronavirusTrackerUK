@@ -10,39 +10,6 @@ function DataControl() {
     const {data, isFetching} = useFetch();
     const [mapMode, setMapMode] = useState(1) // 0 = Cumulative, 1 = Daily
     const [mapCases, setMapCases] = useState([]);
-    //const [isLoading, setIsLoading] = useState(true);
-    
-    // const getCases = useCallback(
-    //     () => {
-    //         if (data) {
-    //             switch (mapMode) {
-    //                 case 0:
-    //                     return data.cases.utlas;
-    //                 case 1:
-    //                     return data.cases;
-    //                 default:
-    //                     break;
-    //             }
-    //         }
-    //         return null;
-    //     }, [mapMode, data]
-    // )
-
-    // const getMap = useCallback(
-    //     () => {
-    //         if (data) {
-    //             switch (mapMode) {
-    //                 case 0:
-    //                     return data.utlaMap;
-    //                 case 1:
-    //                     return data.ltlaMap;
-    //                 default:
-    //                     break;
-    //             }
-    //         }
-    //         return null;
-    //     }, [mapMode, data]
-    // )
 
     /* Date processing */
 
@@ -95,9 +62,32 @@ function DataControl() {
                 }
             }
 
+            // Add in missing case data where there are 0 cases for that week
+            for (day = 1; day < mapCaseData.length; day++) {
+                const ltlaList = Array.from(data.ltlaList);
+                for (var j = 0; j < mapCaseData[day].cases.length; j++) {
+                    const currCaseAreaCode = mapCaseData[day].cases[j].areaCode;
+                    const currIndex = ltlaList.findIndex((e) => {return e.REGIONCODE === currCaseAreaCode});
+                    ltlaList.splice(currIndex, 1);
+                }
+
+                for (j = 0; j < ltlaList.length; j++) {
+                    const casesLeftOut = ltlaList[j];
+                    //console.log("Day: " + day + ", region: " + JSON.stringify(casesLeftOut));
+                    const prevDayData = mapCaseData[day - 1].cases.find((e) => {return e.areaCode === casesLeftOut.REGIONCODE});
+                    if (prevDayData) {
+                        mapCaseData[day].cases.push({
+                            ...prevDayData,
+                            casesPastWeek: 0,
+                        });
+                    }
+                }
+            }
+
+
             // Parse additional case data
             for (day = 0; day < mapCaseData.length; day++) {
-                for (var j = 0; j < mapCaseData[day].cases.length; j++) {
+                for (j = 0; j < mapCaseData[day].cases.length; j++) {
                     const currCase = mapCaseData[day].cases[j];
                     const currCaseAreaCode = currCase.areaCode;
                     var caseIncrease = 0;
@@ -108,16 +98,23 @@ function DataControl() {
                         }
                     }
 
-                    const population = populationData.find((e) => e.areaCode === currCaseAreaCode).population;
+                    const populationContainer = populationData.find((e) => e.areaCode === currCaseAreaCode);
+
+                    if (!populationContainer) {
+                        console.log(JSON.stringify(currCase));
+                    }
+                    const population = populationContainer.population;
 
                     const casesPerMillion = currCase.casesPastWeek / (population / 1000000)
                     const caseIncreasePerMillion = caseIncrease / (population / 1000000)
+                    const cumCasesPerMillion = currCase.cumulativeCases / (population / 1000000);
                     mapCaseData[day].cases[j] = {
                          ...currCase, 
                          population: population, 
                          caseIncrease: caseIncrease, 
                          casesPerMillion: casesPerMillion, 
-                         caseIncreasePerMillion: caseIncreasePerMillion 
+                         caseIncreasePerMillion: caseIncreasePerMillion,
+                         cumCasesPerMillion: cumCasesPerMillion
                     };
                 }
             }

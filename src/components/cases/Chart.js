@@ -150,8 +150,10 @@ function Chart({regionCases}) {
                 })
             }
 
+            const graphLabelsParsed = graphLabels.map((e) => {return DateUtils.parseDateShort(DateUtils.stringToDate(e))});
+
             setGraphData({
-                labels: graphLabels,
+                labels: graphLabelsParsed,
                 datasets: graphDatasets
             })
 
