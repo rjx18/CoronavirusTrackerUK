@@ -92,7 +92,7 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
                     fillOpacity = Math.min(casesForFeature.casesPastWeek / 200, 1.0);
                     if (caseIncrease) {
                         fillColor = {
-                            h: clamp(10, 110 - casesForFeature.casesIncrease * 5, 210),
+                            h: clamp(10, 110 - casesForFeature.caseIncrease * 5, 210),
                             s: 100,
                             l: 50,
                         };
@@ -133,12 +133,13 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
             .setContent(`
             <div class="popup-container">
                 <div class="popup-section">
-                    <h1 class="popup-content popupTitle">${feature.properties.areaName}</h1>
+                    <span class="popup-content popupTitle">${feature.properties.areaName}</span>
+                    <br>
                     <span class="popup-content popupLabel" >Pop. ${formatPopulation(casesForFeature.population)} </span>
                 </div>
                 <div class="popup-anim-container">
                     <div class="popup-normal">
-                        <div class="popup-section">
+                        <div class="popup-section-pl">
                             <span class="popup-content popupLabel" >Weekly new cases</span>
                             <br>
                             <span class="popup-content popupValue" >${casesForFeature.casesPastWeek}&nbsp;</span>
@@ -156,6 +157,7 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
                             <span class="popup-content popupLabel" >Weekly new cases (per mil)</span>
                             <br>
                             <span class="popup-content popupValue" >${casesForFeature.casesPerMillion.toFixed(1)}&nbsp;</span>
+                            <br>
                             <div class="popup-new-cases">
                                 <span class="popup-content ${popupSubValueClass}" >${formatIncrease(casesForFeature.caseIncreasePerMillion.toFixed(1))}</span>
                                 <span class="popup-content ${popupSubValueLabelClass}" >from last week</span>
@@ -216,8 +218,6 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
             }
         }, 100);
     }, []);
-
-   
 
     return (
         <Map center={position} zoom={state.zoom} ref={mapRef} className={classes.map} zoomSnap={0.5}>

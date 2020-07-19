@@ -14,13 +14,18 @@ const useStyles = makeStyles({
 function SummaryStats({total}) {
     const classes = useStyles();
 
+    const formatThousands = (x) => {
+        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
     return (
         <Box className={classes.root}> 
             <Typography variant="subtitle1" className={classes.title}>
                 Total
             </Typography>
             <Typography variant="h5" component="h5">
-                <b>{total}</b>
+                <b>{formatThousands(total)}</b>
             </Typography>
         </Box>
     )

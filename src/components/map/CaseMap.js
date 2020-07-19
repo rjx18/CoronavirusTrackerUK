@@ -96,7 +96,7 @@ function ValueLabelComponent(props) {
     const title = DateUtils.parseDateShort(DateUtils.incrementDateBy(DateUtils.getMapInitialDate(), value));
     
     return (
-        <Tooltip open={open} enterTouchDelay={0} placement="top" title={title}>
+        <Tooltip open={open} enterTouchDelay={0} placement="top" title={title} arrow>
         {children}
         </Tooltip>
     );
@@ -203,7 +203,7 @@ function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate
                             </Typography>
                         </Box>
                         <Box width="50%" mr={smMedia ? 2 : 0}>
-                            <SummaryDate date={currentDate}/>
+                            <SummaryDate date={currentDate} dataChange={dateIndex > numDays - 10}/>
                         </Box>
                     </Box>
                     <Box>

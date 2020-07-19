@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.button,
        textAlign: 'center',
        fontSize: 18,
-       marginTop: 20
+       marginTop: 20,
+       color: "#757575"
     },
     label: {
         ...theme.typography.button
@@ -166,10 +167,7 @@ function Chart({regionCases}) {
 
     useEffect(() => {
         if (regionCases.length > 0) {
-            console.log("Date interval from: " + getFirstUpdateDate() + " to " + getLastUpdateDate());
             processGraphData();
-        } else {
-            console.log("Nothing selected!");
         }
     }, [regionCases, processGraphData, getFirstUpdateDate, getLastUpdateDate]);
 

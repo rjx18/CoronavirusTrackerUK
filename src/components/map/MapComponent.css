@@ -75,6 +75,10 @@
   padding-bottom: 13px;
 }
 
+.popup-section-pl {
+  padding-bottom: 17px;
+}
+
 .popup-new-cases {
   white-space: nowrap;
 }
@@ -82,7 +86,10 @@
 .popupTitle {
   text-transform: none;
   font-size: 24px;
-  line-height: 1.5;
+  line-height: 1.25;
+  padding-bottom: 5px;
+  display: inline-block;
+  white-space: normal;
 }
 
 .popupLabel {

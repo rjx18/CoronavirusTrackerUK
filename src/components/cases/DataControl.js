@@ -91,8 +91,6 @@ function DataControl(props) {
             }
         }
 
-        console.log("FilteredList: " + filteredList);
-
         return filteredList;
 
         // const regionCodeList = regions.map((d, idx) => {

@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 15,
     color: '#333333'
   },
+  appBarIcon: {
+    marginRight: 8,
+  },
   button: {
     margin: theme.spacing(1),
     color: '#7A7A7A'
@@ -105,7 +108,11 @@ export default function Navbar() {
             </Box>
             <Box flexGrow={smMedia ? 1 : 0}>
               <Typography variant="h6" className={classes.title}>
-                  COVID Tracker UK
+                {smMedia ? 
+                  <></> : 
+                  <img className={classes.appBarIcon} src={process.env.PUBLIC_URL + "logo128.png"} alt="logo" width="15px" height="15px"/>
+                }
+                COVID Tracker UK
               </Typography>
             </Box>
             <Box flexGrow={1} display={ smMedia ? 'none' : 'block' }>
