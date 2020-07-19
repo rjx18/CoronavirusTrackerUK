@@ -15,7 +15,7 @@ function SummaryStats({total}) {
     const classes = useStyles();
 
     const formatThousands = (x) => {
-        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
 

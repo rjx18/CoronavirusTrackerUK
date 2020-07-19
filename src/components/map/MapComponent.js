@@ -30,7 +30,7 @@ function clamp(num, min, max) {
 
 function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode, history}) {
     const classes = useStyles();
-    const smMedia = useMediaQuery('(max-width:700px)');
+    const smMedia = useMediaQuery('(max-width:1100px)');
 
     const state = {
     lat: 52.9,
@@ -43,7 +43,7 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
     var mapRef = useRef();
 
     const formatPopulation = (x) => {
-        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     const formatIncrease = (x) => {

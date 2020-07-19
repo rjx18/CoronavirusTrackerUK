@@ -36,17 +36,13 @@ const useStyles = makeStyles((theme) => ({
     formControlLabel: {
         marginLeft: 0
     },
-    label: {
-        ...theme.typography.button
-    },
+    label: theme.typography.button,
     speedSelect: {
         padding: 5,
         minHeight: 0,
         minWidth: 50,
     },
-    speedSelectItem: {
-        ...theme.typography.button
-    }
+    speedSelectItem: theme.typography.button
   }));
 
 const sliderBoxShadow =
@@ -132,7 +128,7 @@ const speedOptions = [
   ];
 
 function CaseMap({mapGeoJson, mapCases, mapMode, handleMapModeChange, latestDate, history}) {
-    const smMedia = useMediaQuery('(max-width:700px)');
+    const smMedia = useMediaQuery('(max-width:1100px)');
 
     const classes = useStyles();
 

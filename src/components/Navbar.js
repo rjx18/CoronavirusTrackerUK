@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: '15em'
   },
-  drawerListText: {
-    ...theme.typography.button,
-  },
+  drawerListText: theme.typography.button
 }));
 
 function HideOnScroll(props) {

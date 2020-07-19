@@ -6,6 +6,7 @@ import { Box, Typography } from '@material-ui/core';
 import Navbar from './components/Navbar';
 import ChartPage from './components/cases';
 import MapPage from './components/map';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const smMedia = useMediaQuery('(max-width:400px)');
   const classes = useStyles();
   
   return (
@@ -50,11 +52,16 @@ function App() {
       {/* Footer */}
       <Box className={classes.footer}>
         <Box className={classes.footerContent} display="flex">
-          <Box flexGrow={1}>
-            <Typography className={classes.footerText} variant="body2" gutterBottom>
-              created by <b>u/richhard</b>
-            </Typography>
-          </Box>
+          {
+            smMedia ? 
+            <></>
+            :
+            <Box flexGrow={1}>
+              <Typography className={classes.footerText} variant="body2" gutterBottom>
+                created by <b>u/richhard</b>
+              </Typography>
+            </Box>
+          }
           <Typography className={classes.footerText} variant="body2" gutterBottom>
             <b>für Lucy</b>, ich vermisse dich und liebe dich
           </Typography>

@@ -31,13 +31,11 @@ const useStyles = makeStyles((theme) => ({
        marginTop: 20,
        color: "#757575"
     },
-    label: {
-        ...theme.typography.button
-    },
+    label: theme.typography.button
   }));
 
 function Chart({regionCases}) {
-    const smMedia = useMediaQuery('(max-width:700px)');
+    const smMedia = useMediaQuery('(max-width:1100px)');
 
     const classes = useStyles();
 
