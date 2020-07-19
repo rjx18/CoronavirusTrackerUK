@@ -72,7 +72,7 @@ function ChartPage(props) {
                       Data for charts obtained from the <a href= "https://coronavirus.data.gov.uk/" target="_blank" rel="noopener noreferrer">GOV.UK coronavirus dashboard</a>.
                       <br/>
                       <br/>
-                      <b>Pillar 2 cases for England are also now included in the SGSS data feed from PHE.</b> 
+                      <b>Pillar 2 cases for England are also now included in the SGSS data feed from PHE. </b> 
                       In England, laboratories submit test results to PHE through the Second Generation Surveillance System (SGSS). 
                       Cases received from laboratories by 12:30am are included in the counts published that day. 
                       Confirmed positive cases are matched to ONS geographical area codes using the home postcode of the person tested. 
