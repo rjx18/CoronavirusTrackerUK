@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { Box, Typography } from '@material-ui/core';
 import Navbar from './components/Navbar';
 import ChartPage from './components/cases';
@@ -39,8 +39,11 @@ function App() {
       </Route>
       <Navbar />
       <Box py={10}>
-        <Route exact path="/cases" component={ChartPage} />
-        <Route exact path="/map" component={MapPage} />
+        <Switch>
+          <Route exact path="/cases" component={ChartPage} />
+          <Route exact path="/map" component={MapPage} />
+          <Redirect to="/cases" />
+        </Switch>
       </Box>
     </Router>
 

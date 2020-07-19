@@ -36,19 +36,21 @@ function DataControl(props) {
                 const selectedRegionsNames = selectedRegionsQuery.split(',');
                 switch (selectedAuthorityURL) {
                     case "countries":
-                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.countries.find((e) => e.REGIONCODE === query)}));
+                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.countries.find((e) => e.REGIONCODE === query)}).filter(Boolean));
                         break;
                     case "regions":
-                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.regions.find((e) => e.REGIONCODE === query)}));
+                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.regions.find((e) => e.REGIONCODE === query)}).filter(Boolean));
                         break;
                     case "utlas":
-                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.utlas.find((e) => e.REGIONCODE === query)}));
+                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.utlas.find((e) => e.REGIONCODE === query)}).filter(Boolean));
                         break;
                     case "ltlas":
-                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.ltlas.find((e) => e.REGIONCODE === query)}));
+                        setSelectedRegions(selectedRegionsNames.map((query) => {return data.ltlas.find((e) => e.REGIONCODE === query)}).filter(Boolean));
                         break;
                     default:
-                        break;
+                        setSelectedAuthority("countries");
+                        setSelectedRegions([]);
+                        return;
                 }
             } else {
                 setSelectedRegions([]);
