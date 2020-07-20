@@ -4,6 +4,7 @@ import { Box, Typography } from '@material-ui/core';
 import  * as DateUtils from '../../DateUtils';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 
 const useStyles = makeStyles({
@@ -22,6 +23,19 @@ const useStyles = makeStyles({
 
 function SummaryStats({date, dataChange}) {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    const handleTooltipClose = () => {
+        setOpen(false);
+      };
+    
+    const handleTooltipToggle = () => {
+    setOpen(!open);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpen(true);
+        };
 
     return (
         <Box className={classes.root}> 
@@ -31,11 +45,20 @@ function SummaryStats({date, dataChange}) {
             <Typography variant="h5" component="h5">
                 {
                     dataChange ?
-                    <Tooltip title="Date likely to change!" arrow>
-                        <IconButton className={classes.infoButton} aria-label="About the data" size="small">
-                            <WarningRoundedIcon fontSize="inherit"/>
-                        </IconButton>
-                    </Tooltip> :
+                    <ClickAwayListener onClickAway={handleTooltipClose}>
+                        <Tooltip 
+                            title="Date likely to change!" 
+                            arrow
+                            onClose={handleTooltipClose}
+                            onOpen={handleTooltipOpen}
+                            onHover
+                            open={open}
+                            >
+                            <IconButton className={classes.infoButton} aria-label="About the data" size="small" onClick={handleTooltipToggle}>
+                                <WarningRoundedIcon fontSize="inherit"/>
+                            </IconButton>
+                        </Tooltip>
+                    </ClickAwayListener> :
                     <></>
                 }
                 <b>{DateUtils.parseDateFull(date)}</b>

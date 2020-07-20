@@ -42,6 +42,8 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
 
     var mapRef = useRef();
 
+    var geojsonRef = useRef();
+
     const formatPopulation = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -197,8 +199,19 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
             mouseover: ((e) => {
                 var popup = e.target.getPopup();
                 popup.setLatLng(e.latlng).openOn(mapRef.current.leafletElement);
+                var layer = e.target;
+
+                layer.setStyle({
+                    weight: 3,
+                    color: '#8f8f8f',
+                });
+
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
             }),
             mouseout: ((e) => {
+                geojsonRef.current.leafletElement.resetStyle(e.target);
                 e.target.closePopup();
             }),
             mousemove: ((e) => {
@@ -225,7 +238,7 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
                 url={MAPBOX_URL}
                 attribution="Map data &copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors, <a href=&quot;https://creativecommons.org/licenses/by-sa/2.0/&quot;>CC-BY-SA</a>, Imagery &copy; <a href=&quot;https://www.mapbox.com/&quot;>Mapbox</a>"
             />
-            <GeoJSON key={(casesForDate) ? `geojson-${DateUtils.dateToString(casesForDate.date)}` : `geojson-null`} data={geojson} style={style} onEachFeature={onEachFeature} />
+            <GeoJSON ref={geojsonRef} key={(casesForDate) ? `geojson-${DateUtils.dateToString(casesForDate.date)}` : `geojson-null`} data={geojson} style={style} onEachFeature={onEachFeature} />
         </Map>
     )
 }
