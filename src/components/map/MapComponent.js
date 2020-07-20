@@ -211,7 +211,10 @@ function MapComponent({geojson, casesForDate, perMillion, caseIncrease, mapMode,
                 }
             }),
             mouseout: ((e) => {
-                geojsonRef.current.leafletElement.resetStyle(e.target);
+                layer.setStyle({
+                    weight: 1,
+                    color: '#8f8f8f',
+                });
                 e.target.closePopup();
             }),
             mousemove: ((e) => {
