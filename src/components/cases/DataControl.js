@@ -2,11 +2,13 @@ import React from 'react';
 import useFetch from './useFetch';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useCallback, useEffect } from 'react';
-import { Box, CircularProgress } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withRouter } from "react-router-dom";
 import Filter from './Filter';
 import Chart from './Chart';
 import qs from 'qs';
+import ErrorPrompt from '../ErrorPrompt';
 
 const useStyles = makeStyles((theme) => ({
     filterBox: {
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 function DataControl(props) {
     const classes = useStyles();
 
-    const {data, isLoading} = useFetch();
+    const {data, isLoading, isError} = useFetch();
 
     const [selectedAuthority, setSelectedAuthority] = useState("countries");
 
@@ -119,6 +121,9 @@ function DataControl(props) {
     }, [selectedRegions, filterRegion])
 
     return (
+        isError ? 
+            <ErrorPrompt history={props.history} />
+            :
         isLoading ? 
             <Box display="flex" justifyContent="center">
                 <CircularProgress />

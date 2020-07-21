@@ -14,7 +14,7 @@ const MAPBOX_URL = `https://api.mapbox.com/styles/v1/richhardry/ckc8vwvno3m101io
 
 const useStyles = makeStyles((theme) => ({
     map: {
-        height: 550,
+        height: 600,
         width: "100%",
         borderRadius: 20,
     },

@@ -1,15 +1,18 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import useFetch from './useFetch';
-import { Box, CircularProgress } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import CaseMap from './CaseMap';
 import { populationData } from './Population';
 import  * as DateUtils from '../../DateUtils';
+import ErrorPrompt from '../ErrorPrompt';
 
 function DataControl(props) {
-    const {data, isFetching} = useFetch();
+    const {data, isError} = useFetch();
     const [mapMode, setMapMode] = useState(1) // 0 = Cumulative, 1 = Daily
     const [mapCases, setMapCases] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     /* Date processing */
 
@@ -120,6 +123,7 @@ function DataControl(props) {
             }
 
             setMapCases(mapCaseData);
+            setIsLoading(false);
         }
     }, [getLastUpdateDate, data])
 
@@ -142,11 +146,14 @@ function DataControl(props) {
     */
 
     return (
-        isFetching ? 
+        isError ? 
+            <ErrorPrompt history={props.history} />
+            :
+        isLoading ? 
             <Box display="flex" justifyContent="center">
                 <CircularProgress />
             </Box> 
-            : 
+            :
             <Box>
                 <CaseMap 
                     mapCases={mapCases} 
