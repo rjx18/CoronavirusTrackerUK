@@ -107,9 +107,11 @@ function MapPage(props) {
               <Box lineHeight={1.7}>
                 However, as of <strong>2 August 2020</strong>, the GOV.UK API that feeds data into this website will <strong>no longer be updated</strong>. 
                 <br/>
-                Since the new GOV.UK dashboard has implemented similar features and more, I highly recommend using their dashboard instead to obtain case information. 
+                Since the <a href="https://coronavirus.data.gov.uk/" target="_blank" rel="noopener noreferrer">new GOV.UK dashboard</a> has implemented similar features and more, I highly recommend using their dashboard instead to obtain case information. 
                 <br/>
                 I will therefore no longer be maintaining this project in the future. Thank you all for your support!
+                <br/>
+                P.S. The source code is available <a href="https://github.com/rjx18/CoronavirusTrackerUK" target="_blank" rel="noopener noreferrer">here at GitHub</a> for anyone who is interested.
               </Box>
             </Alert>
           </Box>
