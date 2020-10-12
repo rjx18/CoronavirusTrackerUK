@@ -8,6 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -94,6 +95,24 @@ function MapPage(props) {
                 </ClickAwayListener>
               )}
             </Popper>
+        </Box>
+        <Box         
+          display="flex" 
+          flexDirection="row-reverse" 
+          justifyContent="center" 
+          alignItems="center">
+          <Box pb={10} width="85%">
+            <Alert severity="info">
+              <AlertTitle>Thank you for using this website!</AlertTitle>
+              <Box lineHeight={1.7}>
+                However, as of <strong>2 August 2020</strong>, the GOV.UK API that feeds data into this website will <strong>no longer be updated</strong>. 
+                <br/>
+                Since the new GOV.UK dashboard has implemented similar features and more, I highly recommend using their dashboard instead to obtain case information. 
+                <br/>
+                I will therefore no longer be maintaining this project in the future. Thank you all for your support!
+              </Box>
+            </Alert>
+          </Box>
         </Box>
         <Box>
             <DataControl {...props}/>
